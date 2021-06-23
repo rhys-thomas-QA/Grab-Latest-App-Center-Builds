@@ -1,0 +1,18 @@
+{
+    "name": "codeceptjs-tests",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "pretest": "node tests/pullLatestBuilds.js",
+        "test": "codeceptjs run --steps"
+    },
+    "devDependencies": {
+        "app-info-parser": "^1.1.2",
+        "axios": "^0.21.1",
+        "codeceptjs": "^3.0.7",
+        "dotenv": "^10.0.0",
+        "ffmetadata": "^1.7.0",
+        "ipa-extract-info": "^1.2.5",
+        "node-apk-parser": "^0.2.3",
+    }
+}
