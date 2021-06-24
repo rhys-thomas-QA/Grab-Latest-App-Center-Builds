@@ -1,15 +1,13 @@
 {
-    "name": "codeceptjs-tests",
+    "name": "Grab-latest-app-center-builds",
     "version": "0.1.0",
-    "private": true,
+    "private": false,
     "scripts": {
-        "pretest": "node tests/pullLatestBuilds.js",
-        "test": "codeceptjs run --steps"
+        "test": "node tests/pullLatestBuilds.js"
     },
     "devDependencies": {
         "app-info-parser": "^1.1.2",
         "axios": "^0.21.1",
-        "codeceptjs": "^3.0.7",
         "dotenv": "^10.0.0",
         "ffmetadata": "^1.7.0",
         "ipa-extract-info": "^1.2.5",
