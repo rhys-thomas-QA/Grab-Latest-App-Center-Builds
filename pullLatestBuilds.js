@@ -88,4 +88,4 @@ const getLatestBuilds = async (appName) => {
     }
 }
 
-getLatestBuilds("YOUR APP NAME")
+getLatestBuilds(process.env.APP_NAME)
