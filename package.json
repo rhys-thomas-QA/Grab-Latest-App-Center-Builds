@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": false,
     "scripts": {
-        "test": "node tests/pullLatestBuilds.js"
+        "test": "node pullLatestBuilds.js"
     },
     "devDependencies": {
         "app-info-parser": "^1.1.2",
