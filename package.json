@@ -11,6 +11,6 @@
         "dotenv": "^10.0.0",
         "ffmetadata": "^1.7.0",
         "ipa-extract-info": "^1.2.5",
-        "node-apk-parser": "^0.2.3",
+        "node-apk-parser": "^0.2.3"
     }
 }
