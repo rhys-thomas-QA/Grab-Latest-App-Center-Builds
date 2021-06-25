@@ -23,7 +23,7 @@ const getLatestBuilds = async (appName) => {
         headers: authHeaders
     })
     if (getAppsFromAppCenter.status == 401) {
-        console.log("You dont have the right access permissions with  app center API key - contact your admin to give you more permissions")
+        throw "You dont have the right access permissions with app center API key - contact your admin to give you more permissions"
     }
     //Leave this console log in so user can see exactly what the app display name is called
     // console.log(getAppsFromAppCenter.data);
@@ -88,4 +88,4 @@ const getLatestBuilds = async (appName) => {
     }
 }
 
-getLatestBuilds("Farmers SIT")
+getLatestBuilds("YOUR APP NAME")
