@@ -12,21 +12,27 @@ const getLatestBuilds = async (appName) => {
     let newVersion;
     let downloadLink;
 
+    if (!fs.existsSync("apps")) {
+        fs.mkdirSync("apps");
+    };
+
     const authHeaders = {
         "X-API-Token": `${process.env.MS_APP_CENTER_KEY}`
     }
     const getAppsFromAppCenter = await request.get("https://api.appcenter.ms/v0.1/apps", {
         headers: authHeaders
     })
-    if(getAppsFromAppCenter.status == 401) {
+    if (getAppsFromAppCenter.status == 401) {
         console.log("You dont have the right access permissions with  app center API key - contact your admin to give you more permissions")
     }
     //Leave this console log in so user can see exactly what the app display name is called
     // console.log(getAppsFromAppCenter.data);
 
-    const indexOfAppInArray = getAppsFromAppCenter.data.map((element) => {return element.display_name}).indexOf(appName)
+    const indexOfAppInArray = getAppsFromAppCenter.data.map((element) => {
+        return element.display_name
+    }).indexOf(appName)
     const appSecret = getAppsFromAppCenter.data[indexOfAppInArray].app_secret;
-    
+
     if (getAppsFromAppCenter.data[indexOfAppInArray].os == "iOS") {
         if (fs.existsSync(`apps/${appName}.ipa`)) {
             const fd = fs.openSync(`apps/${appName}.ipa`, 'r');
@@ -54,6 +60,7 @@ const getLatestBuilds = async (appName) => {
     }
 
     const downloadFile = async (fileExtension, url) => {
+
         const file = fs.createWriteStream(`./apps/${appCenterResponse.data.app_display_name}.${fileExtension}`);
 
         const streamResponse = await request({
@@ -81,4 +88,4 @@ const getLatestBuilds = async (appName) => {
     }
 }
 
-getLatestBuilds("<NAME OF YOUR APP IN APP CENTER>")
+getLatestBuilds("Farmers SIT")
