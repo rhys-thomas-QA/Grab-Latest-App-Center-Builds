@@ -87,5 +87,3 @@ exports.getLatestBuilds = async (appName) => {
         console.log("No newer versions of the app found, you're up to date!")
     }
 }
-
-// getLatestBuilds(process.env.APP_NAME)
