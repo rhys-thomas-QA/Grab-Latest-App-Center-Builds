@@ -6,7 +6,7 @@ const AppInfoParser = require('app-info-parser')
 
 dotenv.config();
 
-const getLatestBuilds = async (appName) => {
+exports.getLatestBuilds = async (appName) => {
     let currentVersion;
     let appCenterResponse;
     let newVersion;
@@ -88,4 +88,4 @@ const getLatestBuilds = async (appName) => {
     }
 }
 
-getLatestBuilds(process.env.APP_NAME)
+// getLatestBuilds(process.env.APP_NAME)
