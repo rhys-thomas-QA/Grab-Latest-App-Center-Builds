@@ -1,6 +1,6 @@
 {
   "name": "@rhysiet/grab-latest-app-center-build",
-  "version": "0.1.4",
+  "version": "0.1.13",
   "private": false,
   "scripts": {
     "test": "node pullLatestBuilds.js"
@@ -14,14 +14,15 @@
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "ipa-extract-info": "^1.2.5",
-    "node-apk-parser": "^0.2.3"
+    "node-apk-parser": "^0.2.3",
+    "ora": "^5.4.1"
   },
   "description": "This script is to run before tests to get the latest app builds from Microsoft App Center so you are running your tests against the very latest app build.  ## Install Install all packages with npm install.   Setup a .env file with your app center API key with the syntax.",
   "bugs": {
     "url": "https://github.com/rhys-thomas-QA/Grab-Latest-App-Center-Builds/issues"
   },
   "homepage": "https://github.com/rhys-thomas-QA/Grab-Latest-App-Center-Builds#readme",
-  "main": "pullLatestBuilds.js",
+  "main":  "pullLatestBuilds.js",
   "author": "",
   "license": "ISC"
 }
