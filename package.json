@@ -21,7 +21,7 @@
     "url": "https://github.com/rhys-thomas-QA/Grab-Latest-App-Center-Builds/issues"
   },
   "homepage": "https://github.com/rhys-thomas-QA/Grab-Latest-App-Center-Builds#readme",
-  "main": "index.js",
+  "main": "pullLatestBuilds.js",
   "author": "",
   "license": "ISC"
 }
