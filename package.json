@@ -1,6 +1,6 @@
 {
   "name": "@rhysiet/grab-latest-app-center-build",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "private": false,
   "scripts": {
     "test": "node pullLatestBuilds.js"
@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/rhys-thomas-QA/Grab-Latest-App-Center-Builds#readme",
   "main":  "pullLatestBuilds.js",
-  "author": "",
+  "author": "Rhys Thomas",
   "license": "ISC"
 }
