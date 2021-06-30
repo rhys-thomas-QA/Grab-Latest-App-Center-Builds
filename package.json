@@ -1,6 +1,6 @@
 {
   "name": "@rhysiet/grab-latest-app-center-build",
-  "version": "0.1.13",
+  "version": "0.2.0",
   "private": false,
   "scripts": {
     "test": "node pullLatestBuilds.js"
