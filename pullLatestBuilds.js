@@ -39,7 +39,7 @@ exports.getLatestBuilds = async (appName) => {
         app_name = getAppsFromAppCenter.data[indexOfAppInArray].name;
     }
 
-    const compareAppVersions = async () => {
+    const compareAppVersions = async (appName) => {
         try {
             const listOfVersions = await request.get(`https://api.appcenter.ms/v0.1/apps/weareroam/${app_name}/releases/`, {
                 headers: authHeaders
@@ -66,8 +66,12 @@ exports.getLatestBuilds = async (appName) => {
         } else if (getAppsFromAppCenter.data[indexOfAppInArray].os == "Android") {
             if (fs.existsSync(`apps/${appName}.apk`)) {
                 const parser = new AppInfoParser(`apps/${appName}.apk`)
-                const parserResponse = await parser.parse();
-                currentVersion = parserResponse.versionName
+                try {
+                    const parserResponse = await parser.parse();
+                    currentVersion = parserResponse.versionName
+                } catch (err) {
+                    throw new Error ("You may have stopped the download part-way last time and I cant read the meta data. Delete the app in your apps folder and try again.")
+                }
             }
         }
     }
