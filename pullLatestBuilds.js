@@ -16,18 +16,23 @@ exports.getLatestBuilds = async (appName) => {
     let maxValue = 0;
     let getAppsFromAppCenter;
     let indexOfAppInArray;
+    const authHeaders = {
+        "X-API-Token": `${process.env.MS_APP_CENTER_KEY}`
+    }
 
     if (!fs.existsSync("apps")) {
         fs.mkdirSync("apps");
     };
 
-    const authHeaders = {
-        "X-API-Token": `${process.env.MS_APP_CENTER_KEY}`
-    }
     const getAllApps = async (appName) => {
-        getAppsFromAppCenter = await request.get("https://api.appcenter.ms/v0.1/apps", {
-            headers: authHeaders
-        })
+        try {
+            getAppsFromAppCenter = await request.get("https://api.appcenter.ms/v0.1/apps", {
+                headers: authHeaders
+            })
+        } catch (err) {
+            console.log("Response code was 401 - Your app center key was not in your env file or does not have the right permissions")
+        }
+
         indexOfAppInArray = getAppsFromAppCenter.data.map((element) => {
             return element.display_name
         }).indexOf(appName)
@@ -35,20 +40,26 @@ exports.getLatestBuilds = async (appName) => {
     }
 
     const compareAppVersions = async () => {
-        const listOfVersions = await request.get(`https://api.appcenter.ms/v0.1/apps/weareroam/${app_name}/releases/`, {
-            headers: authHeaders
-        });
-
-        listOfVersions.data.forEach(element => {
-            if (element.id > maxValue) {
-                maxValue = element.id
-            }
-        })
+        try {
+            const listOfVersions = await request.get(`https://api.appcenter.ms/v0.1/apps/weareroam/${app_name}/releases/`, {
+                headers: authHeaders
+            });
+            listOfVersions.data.forEach(element => {
+                if (element.id > maxValue) {
+                    maxValue = element.id
+                }
+            });
+        } catch (err) {
+            console.log("Response code was 401 - Your App Center key was not in your .env file or does not have the right permissions");
+        }
 
         if (getAppsFromAppCenter.data[indexOfAppInArray].os == "iOS") {
             if (fs.existsSync(`apps/${appName}.ipa`)) {
                 const fd = fs.openSync(`apps/${appName}.ipa`, 'r');
                 extract(fd, (info, raw) => {
+                    if (!raw){
+                        throw new Error ("You may have stopped the download part-way last time and I cant read the meta data. Delete the app in your apps folder and try again.")
+                    }
                     currentVersion = raw[0].CFBundleShortVersionString
                 });
             }
@@ -61,9 +72,13 @@ exports.getLatestBuilds = async (appName) => {
         }
     }
     const getLatestAppDownloadLink = async () => {
-        appCenterResponse = await request.get(`https://api.appcenter.ms/v0.1/apps/${process.env.ORG_NAME}/${app_name}/releases/${maxValue}`, {
-            headers: authHeaders
-        })
+        try {
+            appCenterResponse = await request.get(`https://api.appcenter.ms/v0.1/apps/${process.env.ORG_NAME}/${app_name}/releases/${maxValue}`, {
+                headers: authHeaders
+            })
+        } catch (err) {
+            console.log("Response code was 404 - Your org name was likely not in your .env file or was invalid");
+        }
         newVersion = appCenterResponse.data.short_version
         downloadLink = appCenterResponse.data.download_url;
     }
